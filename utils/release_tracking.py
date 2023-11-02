@@ -63,8 +63,6 @@ def main(argv=[], prog_name=''):
     parallaxsecond_deps = {
         'psa-crypto-sys': 'rust-psa-crypto',
         'psa-crypto': 'rust-psa-crypto',
-        'tss-esapi-sys': 'rust-tss-esapi',
-        'tss-esapi': 'rust-tss-esapi',
         'cryptoki-sys': 'rust-cryptoki',
         'cryptoki': 'rust-cryptoki',
         'parsec-interface': 'parsec-interface-rs',
@@ -73,8 +71,6 @@ def main(argv=[], prog_name=''):
     repo_paths = {
         'psa-crypto-sys': f'{args.clone_dir}/rust-psa-crypto/psa-crypto-sys',
         'psa-crypto': f'{args.clone_dir}/rust-psa-crypto/psa-crypto',
-        'tss-esapi-sys': f'{args.clone_dir}/rust-tss-esapi/tss-esapi-sys',
-        'tss-esapi': f'{args.clone_dir}/rust-tss-esapi/tss-esapi',
         'cryptoki-sys': f'{args.clone_dir}/rust-cryptoki/cryptoki-sys',
         'cryptoki': f'{args.clone_dir}/rust-cryptoki/cryptoki',
         'parsec-interface': f'{args.clone_dir}/parsec-interface-rs',

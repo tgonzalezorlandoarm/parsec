@@ -162,6 +162,7 @@ MSRV=1.66.0
 NO_CARGO_CLEAN=
 NO_STRESS_TEST=
 PROVIDER_NAME=
+MAIN_BRANCH_TRACK=
 CONFIG_PATH=$(pwd)/e2e_tests/provider_cfg/tmp_config.toml
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -170,6 +171,9 @@ while [ "$#" -gt 0 ]; do
         ;;
         --no-stress-test )
             NO_STRESS_TEST="True"
+        ;;
+        --main-branch-tracking )
+            MAIN_BRANCH_TRACK="True"
         ;;
         mbed-crypto | pkcs11 | tpm | trusted-service | cryptoauthlib | all | cargo-check | on-disk-kim)
             if [ -n "$PROVIDER_NAME" ]; then
@@ -202,6 +206,12 @@ while [ "$#" -gt 0 ]; do
     esac
     shift
 done
+
+if [ "$MAIN_BRANCH_TRACK" ]; then
+    echo "Track main branches for parallaxsecond repositories"
+    mkdir -p /tmp/clonings
+    python3 $(pwd)/utils/release_tracking.py --clone_dir /tmp/clonings $(pwd)/Cargo.toml $(pwd)/e2e_tests/Cargo.toml
+fi
 
 # Check if the PROVIDER_NAME was given.
 if [ -z "$PROVIDER_NAME" ]; then
