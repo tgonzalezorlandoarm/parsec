@@ -40,7 +40,7 @@ jobs:
           image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
           image-path: "/tmp"
       - name: Run the container to execute the test script
-        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh all
+        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh --next-branch-tracking all
 
   build-all-providers:
     name: Cargo check all-providers (current Rust stable & old compiler)
@@ -56,7 +56,7 @@ jobs:
           image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
           image-path: "/tmp"
       - name: Run the container to execute the test script
-        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh cargo-check
+        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh cargo-check --next-branch-tracking
 
   mbed-crypto-provider:
     name: Integration tests using Mbed Crypto provider
@@ -72,7 +72,7 @@ jobs:
           image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
           image-path: "/tmp"
       - name: Run the container to execute the test script
-        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh mbed-crypto
+        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh mbed-crypto --next-branch-tracking
 
   pkcs11-provider:
     name: Integration tests using PKCS 11 provider
@@ -88,7 +88,7 @@ jobs:
           image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
           image-path: "/tmp"
       - name: Run the container to execute the test script
-        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh pkcs11 --no-stress-test
+        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh pkcs11 --next-branch-tracking --no-stress-test
 
   tpm-provider:
     name: Integration tests using TPM provider
@@ -104,7 +104,7 @@ jobs:
           image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
           image-path: "/tmp"
       - name: Run the container to execute the test script
-        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh tpm
+        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh tpm --next-branch-tracking
 
   trusted-service-provider:
     name: Integration tests using Crypto Trusted Service provider
@@ -120,7 +120,7 @@ jobs:
           image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
           image-path: "/tmp"
       - name: Run the container to execute the test script
-        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh trusted-service
+        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh trusted-service --next-branch-tracking
 
   cryptoauthlib-provider:
     name: Integration tests using CryptoAuthentication Library provider
@@ -136,7 +136,7 @@ jobs:
           image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
           image-path: "/tmp"
       - name: Run the container to execute the test script
-        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh cryptoauthlib --no-stress-test
+        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh cryptoauthlib --no-stress-test --next-branch-tracking
 
   fuzz-test-checker:
     name: Check that the fuzz testing framework is still working
@@ -174,7 +174,7 @@ jobs:
           image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
           image-path: "/tmp"
       - name: Run the container to execute the test script
-        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh on-disk-kim
+        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh on-disk-kim --next-branch-tracking
 
   cross-compilation:
     # Currently only the Mbed Crypto, PKCS 11, and TPM providers are tested as the other ones need to cross-compile other libraries.
