@@ -33,14 +33,13 @@ jobs:
     needs: [build-and-export-test-all-docker]
     steps:
       - uses: actions/checkout@v2
-      - name: Load Docker
-        uses: ./.github/actions/load_docker
+      - name: Run the container to execute the test script
+        uses: ./.github/actions/all_providers
         if: ${{ env.TEST_ALL_DOCKER_IMAGE == 'parsec-service-test-all' }}
         with:
           image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
           image-path: "/tmp"
-      - name: Run the container to execute the test script
-        run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh --next-branch-tracking all
+          ci-flags-all-providers: ""
 
   build-all-providers:
     name: Cargo check all-providers (current Rust stable & old compiler)
