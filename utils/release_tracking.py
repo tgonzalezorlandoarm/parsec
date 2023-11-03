@@ -89,6 +89,8 @@ def main(argv=[], prog_name=''):
         git_toml_deps(path, parallaxsecond_deps, repo_paths)
         run_cargo_build(os.path.dirname(path))
 
+    return 0
+
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:], sys.argv[0]))

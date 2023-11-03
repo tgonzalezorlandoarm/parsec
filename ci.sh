@@ -211,6 +211,10 @@ if [ "$MAIN_BRANCH_TRACK" ]; then
     echo "Track main branches for parallaxsecond repositories"
     mkdir -p /tmp/clonings
     python3 $(pwd)/utils/release_tracking.py --clone_dir /tmp/clonings $(pwd)/Cargo.toml $(pwd)/e2e_tests/Cargo.toml
+    main_branch_result=$?
+    if [ "$main_branch_result" -ne 0 ]; then
+        error_msg "Failed to track main branches of parallaxsecond repositories."
+    fi
 fi
 
 # Check if the PROVIDER_NAME was given.
