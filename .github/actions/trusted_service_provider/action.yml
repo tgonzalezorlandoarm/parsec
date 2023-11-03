@@ -1,0 +1,20 @@
+name: "Trusted Service Provider Tests"
+description: "Integration tests using Crypto Trusted Service provider"
+inputs:
+    ci-flags-trusted-service-provider:
+      required: true
+      description: "Flags with which to run the trusted service provider ci tests"
+# ...name, description and inputs as above
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v2
+    - name: Load Docker
+      uses: ./.github/actions/load_docker
+      if: ${{ env.TEST_ALL_DOCKER_IMAGE == 'parsec-service-test-all' }}
+      with:
+        image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
+        image-path: "/tmp"
+    - name: Run the container to execute the test script
+      run: docker run -v $(pwd):/tmp/parsec -w /tmp/parsec -t ${{ env.TEST_ALL_DOCKER_IMAGE }} /tmp/parsec/ci.sh ${{ inputs.ci-flags-trusted-service-provider }} trusted-service
+      shell: bash
