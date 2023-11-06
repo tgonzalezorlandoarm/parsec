@@ -35,10 +35,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run the container to execute the test script
         uses: ./.github/actions/all_providers
-        if: ${{ env.TEST_ALL_DOCKER_IMAGE == 'parsec-service-test-all' }}
         with:
-          image-name: "${{ env.TEST_ALL_DOCKER_IMAGE }}"
-          image-path: "/tmp"
           ci-flags-all-providers: ""
 
   build-all-providers:
