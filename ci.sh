@@ -162,7 +162,7 @@ MSRV=1.66.0
 NO_CARGO_CLEAN=
 NO_STRESS_TEST=
 PROVIDER_NAME=
-NEXT_BRANCH_TRACKING=
+TEST_NEXT_BRANCH_TRACKING=
 CONFIG_PATH=$(pwd)/e2e_tests/provider_cfg/tmp_config.toml
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -172,8 +172,8 @@ while [ "$#" -gt 0 ]; do
         --no-stress-test )
             NO_STRESS_TEST="True"
         ;;
-        --next-branch-tracking )
-            NEXT_BRANCH_TRACKING="True"
+        --test-next-branch-tracking )
+            TEST_NEXT_BRANCH_TRACKING="True"
         ;;
         mbed-crypto | pkcs11 | tpm | trusted-service | cryptoauthlib | all | cargo-check | on-disk-kim)
             if [ -n "$PROVIDER_NAME" ]; then
@@ -210,7 +210,7 @@ while [ "$#" -gt 0 ]; do
     shift
 done
 
-if [ "$NEXT_BRANCH_TRACKING" ]; then
+if [ "$TEST_NEXT_BRANCH_TRACKING" ]; then
     echo "Track next branches for parallaxsecond repositories"
     mkdir -p /tmp/clonings
     python3 $(pwd)/utils/release_tracking.py --clone_dir /tmp/clonings $(pwd)/Cargo.toml $(pwd)/e2e_tests/Cargo.toml

@@ -1,4 +1,4 @@
-name: Nightly Next Checks
+name: Nightly Next Branch Checks
 
 on:
   schedule:
@@ -26,7 +26,7 @@ jobs:
       - name: Run the container to execute the test script
         uses: ./.github/actions/all_providers
         with:
-          ci-flags-all-providers: "--next-branch-tracking"
+          ci-flags-all-providers: "--test-next-branch-tracking"
 
   build-all-providers:
     name: Cargo check all-providers (current Rust stable & old compiler)
@@ -38,7 +38,7 @@ jobs:
       - name: Run the container to execute the test script
         uses: ./.github/actions/build_all_providers
         with:
-          ci-flags-all-providers: "--next-branch-tracking"
+          ci-flags-all-providers: "--test-next-branch-tracking"
 
   mbed-crypto-provider:
     name: Integration tests using Mbed Crypto provider
@@ -50,7 +50,7 @@ jobs:
       - name: Run the container to execute the test script
         uses: ./.github/actions/mbed_crypto_provider
         with:
-          ci-flags-mbed-crypto-provider: "--next-branch-tracking"
+          ci-flags-mbed-crypto-provider: "--test-next-branch-tracking"
 
   pkcs11-provider:
     name: Integration tests using PKCS 11 provider
@@ -62,7 +62,7 @@ jobs:
       - name: Run the container to execute the test script
         uses: ./.github/actions/pkcs11_provider
         with:
-          ci-flags-pkcs11-provider: "--no-stress-test --next-branch-tracking"
+          ci-flags-pkcs11-provider: "--no-stress-test --test-next-branch-tracking"
 
   tpm-provider:
     name: Integration tests using TPM provider
@@ -74,7 +74,7 @@ jobs:
       - name: Run the container to execute the test script
         uses: ./.github/actions/tpm_provider
         with:
-          ci-flags-tpm-provider: "--next-branch-tracking"
+          ci-flags-tpm-provider: "--test-next-branch-tracking"
 
   trusted-service-provider:
     name: Integration tests using Crypto Trusted Service provider
@@ -86,4 +86,4 @@ jobs:
       - name: Run the container to execute the test script
         uses: ./.github/actions/trusted_service_provider
         with:
-          ci-flags-trusted-service-provider: "--next-branch-tracking"
+          ci-flags-trusted-service-provider: "--test-next-branch-tracking"
