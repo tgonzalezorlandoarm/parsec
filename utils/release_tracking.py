@@ -8,17 +8,16 @@ import sys
 def run_cargo_build(path):
     print(f"cargo build, path: {path}")
     command = f'cargo build'
-    subprocess.check_output(command.split(), cwd=path)
+    return subprocess.check_output(command, shell=True, cwd=path)
 
 
-def clone_repo(clone_dir, repo_name, branch):
-    git_repo = f"https://github.com/parallaxsecond/{repo_name}.git"
+def clone_repo(clone_dir, repo_link, repo_name, branch):
     future_repo_dir = os.path.join(clone_dir, repo_name)
     if not os.path.isdir(future_repo_dir):
-        command = f"git clone {git_repo} -b {branch} {future_repo_dir}"
-        subprocess.check_output(command.split())
+        command = f"git clone {repo_link} -b {branch} {future_repo_dir}"
+        subprocess.check_output(command, shell=True)
         command = f"git submodule update --init"
-        subprocess.check_output(command.split(), cwd=future_repo_dir)
+        return subprocess.check_output(command, shell=True, cwd=future_repo_dir)
 
 
 def git_toml_deps(toml_path, updatable_deps, deps_repos):
@@ -26,8 +25,9 @@ def git_toml_deps(toml_path, updatable_deps, deps_repos):
     with open(toml_path, 'r') as f:
         lines = f.readlines()
 
-    for i in range(len(lines)):
-        line = lines[i]
+
+    output_lines = []
+    for line in lines:
         for dep in updatable_deps.keys():
             if line.startswith(dep + " ="):
                 # All occurences
@@ -39,13 +39,12 @@ def git_toml_deps(toml_path, updatable_deps, deps_repos):
 
                 if 'path' not in line:
                     line = re.sub(r'version = "[0-9\.]+"', f'path = "{deps_repos[dep]}"', line)
-                lines[i] = line
-
-                dirname = os.path.relpath('.')
+        output_lines.append(line)
 
     with open(toml_path, 'w') as f:
-        f.writelines(lines)
-    print(subprocess.check_output(['git', 'diff'], cwd=os.path.dirname(toml_path)).decode('utf-8'))
+        f.writelines(output_lines)
+    git_cmd = 'git diff'
+    print(subprocess.check_output(git_cmd, shell=True, cwd=os.path.dirname(toml_path)).decode('utf-8'))
 
 
 def main(argv=[], prog_name=''):
@@ -81,7 +80,8 @@ def main(argv=[], prog_name=''):
     repo_branches['tss-esapi'] = '7.x.y'
 
     for repo_name, repo_folder in parallaxsecond_deps.items():
-        clone_repo(args.clone_dir, repo_folder, repo_branches[repo_name])
+        repo_link = f"https://github.com/parallaxsecond/{repo_folder}.git"
+        clone_repo(args.clone_dir, repo_link, repo_folder, repo_branches[repo_name])
         toml_path = os.path.join(repo_paths[repo_name], 'Cargo.toml')
         git_toml_deps(toml_path, parallaxsecond_deps, repo_paths)
 
