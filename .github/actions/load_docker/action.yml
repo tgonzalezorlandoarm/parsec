@@ -18,5 +18,5 @@ runs:
           name: ${{ inputs.image-name }}
           path: ${{ inputs.image-path }}
     - name: Load image
-      run: docker load --input ${{ inputs.image-path }}/${{ inputs.image-name }}.tar
+      run: docker load --input ${{ inputs.image-path }}/${{ inputs.image-name }}.tar.gz
       shell: bash
