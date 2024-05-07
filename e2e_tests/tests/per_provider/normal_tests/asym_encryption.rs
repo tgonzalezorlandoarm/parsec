@@ -13,6 +13,7 @@ use parsec_client::core::interface::operations::psa_key_attributes::{
 use parsec_client::core::interface::requests::{Opcode, ResponseStatus};
 use rand::rngs::OsRng;
 use rsa::{PaddingScheme, PublicKey, RSAPublicKey};
+use log::error;
 
 const PLAINTEXT_MESSAGE: [u8; 32] = [
     0x69, 0x3E, 0xDB, 0x1B, 0x22, 0x79, 0x03, 0xF4, 0xC0, 0xBF, 0xD6, 0x91, 0x76, 0x37, 0x84, 0xA2,
@@ -257,7 +258,7 @@ fn asym_encrypt_decrypt_rsa_pkcs_different_keys() {
     {
         return;
     }
-
+    error!("key1: '{}', key2: '{}'", key_name_1, key_name_2);
     client
         .generate_rsa_encryption_keys_rsapkcs1v15crypt(key_name_1.clone())
         .unwrap();
