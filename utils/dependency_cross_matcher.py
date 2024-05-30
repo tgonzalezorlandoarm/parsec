@@ -103,10 +103,14 @@ def main(argv=[], prog_name=''):
         elif os.path.basename(repo_dir) == 'parsec-tool':
             # Versions should be sorted!
             exceptions = {
-                'base64': ['v0.13.1', 'v0.21.4'],
+                'base64': ['v0.13.1', 'v0.21.4', 'v0.22.1'],
+                'pem': ['v1.1.1', 'v3.0.4'],
                 'bitflags': ['v1.3.2', 'v2.4.1'],
                 'nom': ['v5.1.3', 'v7.1.3'],
+                'ring': ['v0.16.20', 'v0.17.8'],
+                'spin': ['v0.5.2', 'v0.9.8'],
                 'syn': ['v1.0.109', 'v2.0.38'],
+                'untrusted': ['v0.7.1', 'v0.9.0'],
                 'yasna': ['v0.4.0', 'v0.5.2'],
             }
             tree_flags = parsec_tool_flags
